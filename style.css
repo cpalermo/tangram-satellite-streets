@@ -1,0 +1,29 @@
+html, body, div {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+body {
+    line-height: 1.4;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*******************
+Map
+*******************/
+html, .map-layout {
+    height: 100%;
+}
+.map-layout > #content {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+.map-layout > #content > #map {
+    height: 100%;
+}
