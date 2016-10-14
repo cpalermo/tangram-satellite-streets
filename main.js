@@ -6,9 +6,13 @@ var lAttr = '© <a href="https://openstreetmap.org/copyright">OSM</a>' +
     ' contributors data by ' +
     '<a href="https://mapzen.com">Mapzen</a>' ;
 
-var sUrl = 'http://tile.sentinelmap.eu/16/{mm}/{z}/{x}/{y}.jpg' ;
+var sUrl= 'http://tile.sentinelmap.eu/16/{mm}/{z}/{x}/{y}.jpg',
+    
 
-var aug16 = L.tileLayer( sUrl , {id: 'sentinel.aug16', mm: '8', attribution: Attr});
+var aug16= L.tileLayer( sUrl , {id: 'sentinel.aug16', mm: '8', attribution: Attr});
+
+var testUrl= 'http://a.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var test= L.tileLayer( testUrl , {id: 'test', attribution: Attr});
 
 var Labels = Tangram.leafletLayer({
     scene: './scene.yaml',
@@ -20,14 +24,15 @@ var map = L.map('map' , {
     zoom: 7,
     maxZoom: 14,
     minZoom: 6,
-    layers: [aug16, Labels],
+    layers: [aug16],
     zoomControl: false
 });
 
 var hash = new L.Hash(map);
 
 var baseLayers = {
-    "Sentinel-2": aug16
+    "Sentinel-2": aug16,
+    "Test OSM": test
 };
 
 var overlayLayers = {
