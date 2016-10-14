@@ -6,8 +6,7 @@ var lAttr = '© <a href="https://openstreetmap.org/copyright">OSM</a>' +
     ' contributors data by ' +
     '<a href="https://mapzen.com">Mapzen</a>' ;
 
-var sUrl= 'http://tile.sentinelmap.eu/16/{mm}/{z}/{x}/{y}.jpg',
-    
+var sUrl= 'http://tile.sentinelmap.eu/16/{mm}/{z}/{x}/{y}.jpg';
 
 var aug16= L.tileLayer( sUrl , {id: 'sentinel.aug16', mm: '8', attribution: Attr});
 
