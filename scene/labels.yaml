@@ -2,9 +2,9 @@ sources:
     osm: 
         type: TopoJSON
         url: http://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?api_key=vector-tiles-Y3DcPK9
-        max_zoom: 14
+        max_zoom: 16
 
-styles: 
+styles:
     togglelines:
         base: lines
         blend: overlay
