@@ -7,12 +7,12 @@ var osmAttr = '© <a href="https://openstreetmap.org/copyright">OSM</a>' +
     '<a href="https://mapzen.com">Mapzen</a>' ;
 
 var Sat = Tangram.leafletLayer({
-    scene: './scene/sat.yaml',
+    scene: 'sat.yaml',
     attribution: copAttr
 });
 
 var Labels = Tangram.leafletLayer({
-    scene: './scene/labels.yaml',
+    scene: 'labels.yaml',
     attribution: osmAttr
 });
 
