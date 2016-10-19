@@ -34,16 +34,17 @@ layers:
                 buffer: 30px
                 font:
                     family: Arial
-                    size: 10px
-                    fill: [0, 1, 1]
+                    size: 15px
+                    fill: [0, .5, .6]
+                    stroke: { color: [255, 255, 255, .875], width: 3 }
         ocean:
             filter:
                 kind: ocean
             draw:
                 label-lines:
                     order: 1
-                    width: 1.5px
-                    color: [0, 1, 1]
+                    width: 2.5px
+                    color: [0, .5, .6, .125]
         other:
             filter:
                 not:
@@ -51,8 +52,8 @@ layers:
             draw:
                 label-lines:
                     order: 1
-                    width: .5px
-                    color: [0, 1, 1]
+                    width: 1.5px
+                    color: [0, .5, .6, .125]
     boundaries:
         data: { source: osm }
         country:
