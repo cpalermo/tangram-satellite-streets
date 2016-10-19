@@ -6,9 +6,21 @@ var osmAttr = '© <a href="https://openstreetmap.org/copyright">OSM</a>' +
     ' contributors data by ' +
     '<a href="https://mapzen.com">Mapzen</a>' ;
 
-var scLayer = Tangram.leafletLayer({
-    scene: './scene/scene.yaml',
+var Sat = Tangram.leafletLayer({
+    scene: './scene/sat.yaml',
     attribution: copAttr
+});
+
+var Labels = Tangram.leafletLayer({
+    scene: './scene/labels.yaml',
+    attribution: osmAttr
+});
+
+var scene = Sat.scene;
+scene.subscribe({
+    load: function (e) {
+        console.log('scene loaded:', e);
+    }
 });
 
 var map = L.map('map' , {
@@ -16,14 +28,20 @@ var map = L.map('map' , {
     zoom: 7,
     maxZoom: 16,
     minZoom: 6,
-    layers: [scLayer],
+    layers: [Sat, Labels],
     zoomControl: false
 });
 
 var hash = new L.Hash(map);
 
 var baseLayers = {
-    "Sentinel-2": scLayer,
+    "Sentinel-2": Sat,
 };
+
+var overlayLayers = {
+    "Labels": Labels
+};
+
+L.control.layers(baseLayers, overlayLayers, {position: 'topleft'}).addTo(map);
 
 L.control.zoom({position: 'topleft'}).addTo(map);
