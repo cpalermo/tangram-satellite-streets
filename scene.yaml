@@ -44,7 +44,11 @@ layers:
                 label-lines:
                     order: 1
                     width: 2.5px
-                    color: [0, .5, .6, .125]
+                    color: |
+                        function() {
+                            var a = 1 - ($zoom / 16)
+                            return [0, .5, .6, a];
+                        }
         other:
             filter:
                 not:
@@ -53,7 +57,11 @@ layers:
                 label-lines:
                     order: 1
                     width: 1.5px
-                    color: [0, .5, .6, .125]
+                    color: |
+                        function() {
+                            var a = 1 - ($zoom / 16)
+                            return [0, .5, .6, a];
+                        }
     boundaries:
         data: { source: osm }
         country:
