@@ -37,9 +37,10 @@ layers:
                     buffer: 30px
                     font:
                         family: Arial
-                        size: 15px
-                        fill: [0, .5, .6]
-                        stroke: { color: [1, 1, 1], width: 3 }
+                        size: 12.5px
+                        weight: bold
+                        fill: [.65, 1, .95]
+                        stroke: { color: [0, 0, 0], width: 2 }
                         transform: uppercase
         waternames_1:
             filter:
@@ -61,8 +62,9 @@ layers:
                     font:
                         family: Arial
                         size: 10px
-                        fill: [0, .5, .6]
-                        stroke: { color: [1, 1, 1], width: 3 }
+                        weight: bold
+                        fill: [.65, 1, .95]
+                        stroke: { color: [0, 0, 0], width: 2 }
                         transform: uppercase
         waternames_2:
             filter:
