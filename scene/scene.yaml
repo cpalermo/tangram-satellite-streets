@@ -3,7 +3,8 @@ sources:
         type: Raster
         url: http://tile.sentinelmap.eu/16/8/{z}/{x}/{y}.jpg
         max_zoom: 14
-    osm: 
+        bounds: [0.0000, 40.9799, 16.87499, 52.48278] # [w, s, e, n]
+    osm:
         type: TopoJSON
         url: http://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?api_key=vector-tiles-Y3DcPK9
         max_zoom: 16
