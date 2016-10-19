@@ -12,12 +12,14 @@ sources:
 styles:
     satimg:
         base: raster
-    togglelines:
+    label-lines:
         base: lines
         blend: overlay
-    toggletext:
+        blend_order: 0 # under text
+    label-text:
         base: text
         blend: overlay
+        blend_order: 1 # top of text
 
 layers:
     terrain:
@@ -28,7 +30,7 @@ layers:
     water:
         data: { source: osm }
         draw:
-            toggletext:
+            label-text:
                 buffer: 30px
                 font:
                     family: Arial
@@ -38,7 +40,7 @@ layers:
             filter:
                 kind: ocean
             draw:
-                togglelines:
+                label-lines:
                     order: 1
                     width: 1.5px
                     color: [0, 1, 1]
@@ -47,7 +49,7 @@ layers:
                 not:
                     kind: ocean
             draw:
-                togglelines:
+                label-lines:
                     order: 1
                     width: .5px
                     color: [0, 1, 1]
@@ -57,7 +59,7 @@ layers:
             filter:
                 kind: country
             draw:
-                togglelines:
+                label-lines:
                     order: 2
                     width: 4px
                     color: [1, 1, 1]
@@ -65,14 +67,14 @@ layers:
             filter:
                 kind: state
             draw:
-                togglelines:
+                label-lines:
                     order: 2
                     width: 2px
                     color: [1, 1, 1]
     places:
         data: { source: osm }
         draw:
-            toggletext:
+            label-text:
                 font:
                     family: Arial
                     size: 10px
