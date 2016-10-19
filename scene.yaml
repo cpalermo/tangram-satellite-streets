@@ -29,34 +29,63 @@ layers:
                 order: 0
     water:
         data: { source: osm }
-        draw:
-            label-text:
-                buffer: 30px
-                font:
-                    family: Arial
-                    size: 15px
-                    fill: [0, .5, .6]
-                    stroke: { color: [255, 255, 255, .875], width: 3 }
-        ocean:
+        waternames_0:
+            filter:
+                kind: [ocean, sea]
+            draw:
+                label-text:
+                    buffer: 30px
+                    font:
+                        family: Arial
+                        size: 15px
+                        fill: [0, .5, .6]
+                        stroke: { color: [1, 1, 1], width: 3 }
+                        transform: uppercase
+        waternames_1:
+            filter:
+                kind: lake
+            draw:
+                label-text:
+                    buffer: 30px
+                    font:
+                        family: Arial
+                        size: 10px
+                        fill: [0, .5, .6]
+                        stroke: { color: [1, 1, 1], width: 3 }
+                        transform: uppercase
+        waternames_2:
+            filter:
+                kind: [river, canal]
+            draw:
+                label-text:
+                    buffer: 30px
+                    font:
+                        family: Arial
+                        size: 10px
+                        fill: [0, .5, .6]
+                        stroke: { color: [1, 1, 1], width: 3 }
+
+        waterlines_0:
             filter:
                 kind: ocean
+                $zoom: { max: 9 }
             draw:
                 label-lines:
                     order: 1
-                    width: 2.5px
+                    width: 2.0px
                     color: |
                         function() {
                             var a = 1 - ($zoom / 16)
                             return [0, .5, .6, a];
                         }
-        other:
+        waterlines_1:
             filter:
                 not:
                     kind: ocean
             draw:
                 label-lines:
                     order: 1
-                    width: 1.5px
+                    width: 1.0px
                     color: |
                         function() {
                             var a = 1 - ($zoom / 16)
