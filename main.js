@@ -6,9 +6,11 @@ var osmAttr = '© <a href="https://openstreetmap.org/copyright">OSM</a>' +
     ' contributors data by ' +
     '<a href="https://mapzen.com">Mapzen</a>' ;
 
+var Attr = copAttr + osmAttr ;
+
 var scLayer = Tangram.leafletLayer({
     scene: './scene/scene.yaml',
-    attribution: copAttr
+    attribution: Attr
 });
 
 var map = L.map('map' , {
