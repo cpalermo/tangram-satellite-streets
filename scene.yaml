@@ -1,12 +1,20 @@
 settings:
+    localization:
+        #- &text_loc_country function() { return feature["name"]; }
+        - &text_loc_country function() { return feature["name:en"] || feature["name"]; }
     labels:
-        - &text_fill_water [.65, 1, .95]
+        - &text_family_places Arial
+        - &text_family_water  Arial
         - &text_fill_places [1, 1, 1]
+        - &text_fill_water  [.65, 1, .95]
+        - &text_stroke_places { color: [0, 0, 0], width: 2 }
+        - &text_stroke_water  { color: [0, 0, 0], width: 2 }
 
 sources:
     sat:
         type: Raster
         url: http://tile.sentinelmap.eu/16/8/{z}/{x}/{y}.jpg
+        min_zoom: 6
         max_zoom: 14
         bounds: [0.0000, 40.9799, 16.87499, 52.48278] # [w, s, e, n]
     osm:
@@ -32,6 +40,50 @@ layers:
         draw:
             sat-raster:
                 order: 0
+    boundaries:
+        data: { source: osm }
+        adminlines_0:
+            filter:
+                kind: country
+            draw:
+                osm-lines:
+                    order: 2
+                    width: 2.5px
+                    color: [.75, .75, .75, .375]
+        adminlines_1:
+            filter:
+                kind: region
+                $zoom: { min: 9 }
+            draw:
+                osm-lines:
+                    order: 2
+                    width: 1.5px
+                    color: [.75, .75, .75, .375]
+    places:
+        data: { source: osm }
+        country_z6:
+            filter:
+                kind: [country]
+                name: true
+                $zoom: { max: 7 }
+            draw:
+                osm-text:
+                    buffer: 10px
+                    visible: true
+                    text_source: *text_loc_country
+                    font:
+                        size: 15px
+                        weight: bold
+                        transform: uppercase
+                        family: *text_family_places
+                        fill: *text_fill_places
+                        stroke: *text_stroke_places
+            tosmall_z6:
+                filter:
+                    name: [Luxembourg, San Marino, Andorra, Jersey, Guernsey]
+                draw:
+                    osm-text:
+                        visible: false
     water:
         data: { source: osm }
         waternames_0:
@@ -41,12 +93,12 @@ layers:
                 osm-text:
                     buffer: 50px
                     font:
-                        family: Arial
                         size: 12.5px
                         weight: bold
-                        fill: *text_fill_water
-                        stroke: { color: [0, 0, 0], width: 2 }
                         transform: uppercase
+                        family: *text_family_water
+                        fill: *text_fill_water
+                        stroke: *text_stroke_water
         waternames_1:
             filter:
                 all:
@@ -65,12 +117,12 @@ layers:
                 osm-text:
                     buffer: 50px
                     font:
-                        family: Arial
                         size: 10px
                         weight: bold
-                        fill: *text_fill_water
-                        stroke: { color: [0, 0, 0], width: 2 }
                         transform: uppercase
+                        family: *text_family_water
+                        fill: *text_fill_water
+                        stroke: *text_stroke_water
         waternames_2:
             filter:
                 kind: river
@@ -79,10 +131,10 @@ layers:
                 osm-text:
                     buffer: 50px
                     font:
-                        family: Arial
                         size: 10px
+                        family: *text_family_water
                         fill: *text_fill_water
-                        stroke: { color: [0, 0, 0], width: 2 }
+                        stroke: *text_stroke_water
         waternames_3:
             filter:
                 kind: canal
@@ -91,10 +143,10 @@ layers:
                 osm-text:
                     buffer: 50px
                     font:
-                        family: Arial
                         size: 10px
+                        family: *text_family_water
                         fill: *text_fill_water
-                        stroke: { color: [0, 0, 0], width: 2 }
+                        stroke: *text_stroke_water
         waterlines_0:
             filter:
                 kind: ocean
@@ -145,45 +197,3 @@ layers:
                             var a = 1 - ($zoom / 16)
                             return [0, .5, .6, a];
                         }
-    boundaries:
-        data: { source: osm }
-        adminlines_0:
-            filter:
-                kind: country
-            draw:
-                osm-lines:
-                    order: 2
-                    width: 2.5px
-                    color: [.75, .75, .75, .375]
-        adminlines_1:
-            filter:
-                kind: region
-                $zoom: { min: 9 }
-            draw:
-                osm-lines:
-                    order: 2
-                    width: 1.5px
-                    color: [.75, .75, .75, .375]
-    places:
-        data: { source: osm }
-        country_z6:
-            filter:
-                all:
-                    - kind: [country]
-                    #- name: true
-                    #- $zoom { max: 7 }
-            draw:
-                osm-text:
-                    buffer: 10px
-                    visible: true
-                    #text_source: function() { return feature["name:en"] || feature["name"]; }
-                    font:
-                        family: Arial
-                        size: 20px
-                        fill: *text_fill_places
-            small_z6:
-                filter:
-                    name: [Luxembourg, San Marino, Andorra]
-                draw:
-                    osm-text:
-                        visible: false
