@@ -1,3 +1,8 @@
+settings:
+    labels:
+        - &text_fill_water [.65, 1, .95]
+        - &text_fill_places [1, 1, 1]
+
 sources:
     sat:
         type: Raster
@@ -39,7 +44,7 @@ layers:
                         family: Arial
                         size: 12.5px
                         weight: bold
-                        fill: [.65, 1, .95]
+                        fill: *text_fill_water
                         stroke: { color: [0, 0, 0], width: 2 }
                         transform: uppercase
         waternames_1:
@@ -63,7 +68,7 @@ layers:
                         family: Arial
                         size: 10px
                         weight: bold
-                        fill: [.65, 1, .95]
+                        fill: *text_fill_water
                         stroke: { color: [0, 0, 0], width: 2 }
                         transform: uppercase
         waternames_2:
@@ -76,7 +81,7 @@ layers:
                     font:
                         family: Arial
                         size: 10px
-                        fill: [.65, 1, .95]
+                        fill: *text_fill_water
                         stroke: { color: [0, 0, 0], width: 2 }
         waternames_3:
             filter:
@@ -88,7 +93,7 @@ layers:
                     font:
                         family: Arial
                         size: 10px
-                        fill: [.65, 1, .95]
+                        fill: *text_fill_water
                         stroke: { color: [0, 0, 0], width: 2 }
         waterlines_0:
             filter:
@@ -161,9 +166,13 @@ layers:
                     color: [.75, .75, .75, .375]
     places:
         data: { source: osm }
-        draw:
-            osm-text:
-                font:
-                    family: Arial
-                    size: 10px
-                    fill: [1, 1, 1]
+        adminnames_0:
+            filter:
+                kind: [continent, country]
+            draw:
+                osm-text:
+                    buffer: 10px
+                    font:
+                        family: Arial
+                        size: 20px
+                        fill: *text_fill_places
