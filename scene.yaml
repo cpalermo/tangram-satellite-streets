@@ -34,7 +34,7 @@ layers:
                 kind: [ocean, sea]
             draw:
                 label-text:
-                    buffer: 30px
+                    buffer: 50px
                     font:
                         family: Arial
                         size: 12.5px
@@ -58,7 +58,7 @@ layers:
                     - { $zoom: { min: 14 }, area: { min: 2000 } }
             draw:
                 label-text:
-                    buffer: 30px
+                    buffer: 50px
                     font:
                         family: Arial
                         size: 10px
@@ -68,16 +68,28 @@ layers:
                         transform: uppercase
         waternames_2:
             filter:
-                kind: [river, canal]
+                kind: river
+                $zoom: { min: 10 }
             draw:
                 label-text:
-                    buffer: 30px
+                    buffer: 50px
                     font:
                         family: Arial
                         size: 10px
-                        fill: [0, .5, .6]
-                        stroke: { color: [1, 1, 1], width: 3 }
-
+                        fill: [.65, 1, .95]
+                        stroke: { color: [0, 0, 0], width: 2 }
+        waternames_3:
+            filter:
+                kind: canal
+                $zoom: { min: 12 }
+            draw:
+                label-text:
+                    buffer: 50px
+                    font:
+                        family: Arial
+                        size: 10px
+                        fill: [.65, 1, .95]
+                        stroke: { color: [0, 0, 0], width: 2 }
         waterlines_0:
             filter:
                 kind: ocean
@@ -93,8 +105,32 @@ layers:
                         }
         waterlines_1:
             filter:
-                not:
-                    kind: ocean
+                kind: lake
+            draw:
+                label-lines:
+                    order: 1
+                    width: 1.0px
+                    color: |
+                        function() {
+                            var a = 1 - ($zoom / 16)
+                            return [0, .5, .6, a];
+                        }
+        waterlines_2:
+            filter:
+                kind: [river, water]
+            draw:
+                label-lines:
+                    order: 1
+                    width: 1.0px
+                    color: |
+                        function() {
+                            var a = 1 - ($zoom / 16)
+                            return [0, .5, .6, a];
+                        }
+        waterlines_3:
+            filter:
+                kind: canal
+                $zoom: { min: 11 }
             draw:
                 label-lines:
                     order: 1
