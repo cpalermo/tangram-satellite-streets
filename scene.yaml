@@ -10,13 +10,13 @@ sources:
         max_zoom: 16
 
 styles:
-    satimg:
+    sat-raster:
         base: raster
-    label-lines:
+    osm-lines:
         base: lines
         blend: overlay
         blend_order: 0 # under text
-    label-text:
+    osm-text:
         base: text
         blend: overlay
         blend_order: 1 # top of text
@@ -25,7 +25,7 @@ layers:
     terrain:
         data: { source: sat }
         draw:
-            satimg:
+            sat-raster:
                 order: 0
     water:
         data: { source: osm }
@@ -33,7 +33,7 @@ layers:
             filter:
                 kind: [ocean, sea]
             draw:
-                label-text:
+                osm-text:
                     buffer: 50px
                     font:
                         family: Arial
@@ -57,7 +57,7 @@ layers:
                     - { $zoom: { min: 13 }, area: { min: 100000 } }
                     - { $zoom: { min: 14 }, area: { min: 2000 } }
             draw:
-                label-text:
+                osm-text:
                     buffer: 50px
                     font:
                         family: Arial
@@ -71,7 +71,7 @@ layers:
                 kind: river
                 $zoom: { min: 10 }
             draw:
-                label-text:
+                osm-text:
                     buffer: 50px
                     font:
                         family: Arial
@@ -83,7 +83,7 @@ layers:
                 kind: canal
                 $zoom: { min: 12 }
             draw:
-                label-text:
+                osm-text:
                     buffer: 50px
                     font:
                         family: Arial
@@ -95,7 +95,7 @@ layers:
                 kind: ocean
                 $zoom: { max: 9 }
             draw:
-                label-lines:
+                osm-lines:
                     order: 1
                     width: 2.0px
                     color: |
@@ -107,7 +107,7 @@ layers:
             filter:
                 kind: lake
             draw:
-                label-lines:
+                osm-lines:
                     order: 1
                     width: 1.0px
                     color: |
@@ -119,7 +119,7 @@ layers:
             filter:
                 kind: [river, water]
             draw:
-                label-lines:
+                osm-lines:
                     order: 1
                     width: 1.0px
                     color: |
@@ -132,7 +132,7 @@ layers:
                 kind: canal
                 $zoom: { min: 11 }
             draw:
-                label-lines:
+                osm-lines:
                     order: 1
                     width: 1.0px
                     color: |
@@ -146,7 +146,7 @@ layers:
             filter:
                 kind: country
             draw:
-                label-lines:
+                osm-lines:
                     order: 2
                     width: 2.5px
                     color: [.75, .75, .75, .375]
@@ -155,14 +155,14 @@ layers:
                 kind: region
                 $zoom: { min: 9 }
             draw:
-                label-lines:
+                osm-lines:
                     order: 2
                     width: 1.5px
                     color: [.75, .75, .75, .375]
     places:
         data: { source: osm }
         draw:
-            label-text:
+            osm-text:
                 font:
                     family: Arial
                     size: 10px
