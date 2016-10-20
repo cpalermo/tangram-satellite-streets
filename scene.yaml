@@ -166,13 +166,24 @@ layers:
                     color: [.75, .75, .75, .375]
     places:
         data: { source: osm }
-        adminnames_0:
+        country_z6:
             filter:
-                kind: [continent, country]
+                all:
+                    - kind: [country]
+                    #- name: true
+                    #- $zoom { max: 7 }
             draw:
                 osm-text:
                     buffer: 10px
+                    visible: true
+                    #text_source: function() { return feature["name:en"] || feature["name"]; }
                     font:
                         family: Arial
                         size: 20px
                         fill: *text_fill_places
+            small_z6:
+                filter:
+                    name: [Luxembourg, San Marino, Andorra]
+                draw:
+                    osm-text:
+                        visible: false
