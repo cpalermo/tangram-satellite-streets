@@ -9,6 +9,8 @@ settings:
         - &text_fill_water  [.65, 1, .95]
         - &text_stroke_places { color: [0, 0, 0], width: 2 }
         - &text_stroke_water  { color: [0, 0, 0], width: 2 }
+    exceptions:
+        - &small_countries [Luxembourg, San Marino, Città del Vaticano, Andorra, Jersey, Guernsey]
 
 sources:
     sat:
@@ -61,7 +63,7 @@ layers:
                     color: [.75, .75, .75, .375]
     places:
         data: { source: osm }
-        country_z6:
+        countries_0:
             filter:
                 kind: [country]
                 name: true
@@ -78,12 +80,47 @@ layers:
                         family: *text_family_places
                         fill: *text_fill_places
                         stroke: *text_stroke_places
-            tosmall_z6:
+            tosmall:
                 filter:
-                    name: [Luxembourg, San Marino, Andorra, Jersey, Guernsey]
+                    name: *small_countries
                 draw:
                     osm-text:
                         visible: false
+        countries_1:
+            filter:
+                kind: [country]
+                name: true
+                $zoom: { min: 7, max: 9 }
+            draw:
+                osm-text:
+                    buffer: 10px
+                    visible: true
+                    text_source: *text_loc_country
+                    font:
+                        size: 15px
+                        weight: bold
+                        transform: uppercase
+                        family: *text_family_places
+                        fill: *text_fill_places
+                        stroke: *text_stroke_places
+        countries_2:
+            filter:
+                kind: [country]
+                name: *small_countries
+                $zoom: { min: 9, max: 13 }
+            draw:
+                osm-text:
+                    buffer: 10px
+                    visible: true
+                    text_source: *text_loc_country
+                    font:
+                        size: 15px
+                        weight: bold
+                        transform: uppercase
+                        family: *text_family_places
+                        fill: *text_fill_places
+                        stroke: *text_stroke_places
+
     water:
         data: { source: osm }
         waternames_0:
