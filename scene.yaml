@@ -36,6 +36,10 @@ styles:
         blend: overlay
         blend_order: 1 # top of text
 
+scene:
+    background:
+        color: [.75, .75, .75]
+
 layers:
     terrain:
         data: { source: sat }
@@ -128,7 +132,7 @@ layers:
                 kind: [ocean, sea]
             draw:
                 osm-text:
-                    buffer: 50px
+                    buffer: 10px
                     font:
                         size: 12.5px
                         weight: bold
@@ -152,7 +156,7 @@ layers:
                     - { $zoom: { min: 14 }, area: { min: 2000 } }
             draw:
                 osm-text:
-                    buffer: 50px
+                    buffer: 10px
                     font:
                         size: 10px
                         weight: bold
@@ -166,7 +170,7 @@ layers:
                 $zoom: { min: 10 }
             draw:
                 osm-text:
-                    buffer: 50px
+                    buffer: 10px
                     font:
                         size: 10px
                         family: *text_family_water
@@ -178,7 +182,7 @@ layers:
                 $zoom: { min: 12 }
             draw:
                 osm-text:
-                    buffer: 50px
+                    buffer: 10px
                     font:
                         size: 10px
                         family: *text_family_water
