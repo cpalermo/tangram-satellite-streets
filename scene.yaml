@@ -11,9 +11,9 @@ settings:
         - &text_stroke_water  { color: [0, 0, 0], width: 2 }
     # order vars: "text-[order,buffer]-{layer}" ; "lines-order-{layer}"
     orders:
-        - &raster-order      0
-        - &lines-order-boundaries 3
-        - &lines-order-water      4
+        - &raster-order 0
+        - &lines-order-boundaries function() { return feature.sort_rank; }
+        - &lines-order-water      function() { return feature.sort_rank; }
         - &text-order-places 1
         - &text-order-water  2
         - &text-buffer-places 10px
@@ -136,7 +136,42 @@ layers:
                         family: *text_family_places
                         fill: *text_fill_places
                         stroke: *text_stroke_places
-
+        admin_0:
+            filter:
+                kind: region
+                name: true
+                $zoom: { min: 9 }
+            draw:
+                osm-text:
+                    order: *text-order-places
+                    buffer: *text-buffer-places
+                    visible: true
+                    font:
+                        size: 10px
+                        weight: bold
+                        transform: uppercase
+                        family: *text_family_places
+                        fill: *text_fill_places
+                        stroke: *text_stroke_places
+        locality_0:
+            filter:
+                kind: locality
+                name: true
+            draw:
+                osm-text:
+                    order: *text-order-places
+                    buffer: *text-buffer-places
+                    visible: true
+                    font:
+                        size: 10px
+                        weight: bold
+                        family: *text_family_places
+                        fill: *text_fill_places
+                        stroke: *text_stroke_places
+        # nix podunk burgs under z15
+            minor-places:
+                filter: { kind: [farm, hamlet, isolated_dwelling], $zoom: { max: 12 } }
+                visible: false
     water:
         data: { source: osm }
         waterlines_0:
@@ -212,11 +247,7 @@ layers:
                     - { $zoom: { min: 7 },  area: { min: 100000000 } }
                     - { $zoom: { min: 8 },  area: { min: 50000000 } }
                     - { $zoom: { min: 9 },  area: { min: 25000000 } }
-                    - { $zoom: { min: 10 }, area: { min: 8000000 } }
-                    - { $zoom: { min: 11 }, area: { min: 2000000 } }
-                    - { $zoom: { min: 12 }, area: { min: 200000 } }
-                    - { $zoom: { min: 13 }, area: { min: 100000 } }
-                    - { $zoom: { min: 14 }, area: { min: 2000 } }
+                    - $zoom: { min: 10, max: 16 } ## ??
             draw:
                 osm-text:
                     order: *text-order-water
