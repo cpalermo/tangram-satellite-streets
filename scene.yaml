@@ -19,7 +19,7 @@ settings:
         - &text-buffer-places 10px
         - &text-buffer-water  10px
     exceptions:
-        - &small_countries [Luxembourg, San Marino, Città del Vaticano, Andorra, Jersey, Guernsey]
+        - &small_countries [Luxembourg, Liechtenstein, San Marino, Città del Vaticano, Andorra, Jersey, Guernsey]
 
 sources:
     sat:
