@@ -9,6 +9,15 @@ settings:
         - &text_fill_water  [.65, 1, .95]
         - &text_stroke_places { color: [0, 0, 0], width: 2 }
         - &text_stroke_water  { color: [0, 0, 0], width: 2 }
+    # order vars: "text-[order,buffer]-{layer}" ; "lines-order-{layer}"
+    orders:
+        - &raster-order      0
+        - &lines-order-boundaries 3
+        - &lines-order-water      4
+        - &text-order-places 1
+        - &text-order-water  2
+        - &text-buffer-places 10px
+        - &text-buffer-water  10px
     exceptions:
         - &small_countries [Luxembourg, San Marino, Città del Vaticano, Andorra, Jersey, Guernsey]
 
@@ -34,7 +43,7 @@ styles:
     osm-text:
         base: text
         blend: overlay
-        blend_order: 1 # top of text
+        blend_order: 1 # over lines
 
 scene:
     background:
@@ -45,7 +54,7 @@ layers:
         data: { source: sat }
         draw:
             sat-raster:
-                order: 0
+                order: *raster-order
     boundaries:
         data: { source: osm }
         adminlines_0:
@@ -53,7 +62,7 @@ layers:
                 kind: country
             draw:
                 osm-lines:
-                    order: 2
+                    order: *lines-order-boundaries
                     width: 2.5px
                     color: [.75, .75, .75, .375]
         adminlines_1:
@@ -62,7 +71,7 @@ layers:
                 $zoom: { min: 9 }
             draw:
                 osm-lines:
-                    order: 2
+                    order: *lines-order-boundaries
                     width: 1.5px
                     color: [.75, .75, .75, .375]
     places:
@@ -74,9 +83,10 @@ layers:
                 $zoom: { max: 7 }
             draw:
                 osm-text:
-                    buffer: 10px
-                    visible: true
+                    order: *text-order-places
+                    buffer: *text-buffer-places
                     text_source: *text_loc_country
+                    visible: true
                     font:
                         size: 15px
                         weight: bold
@@ -97,9 +107,10 @@ layers:
                 $zoom: { min: 7, max: 9 }
             draw:
                 osm-text:
-                    buffer: 10px
-                    visible: true
+                    order: *text-order-places
+                    buffer: *text-buffer-places
                     text_source: *text_loc_country
+                    visible: true
                     font:
                         size: 15px
                         weight: bold
@@ -114,9 +125,10 @@ layers:
                 $zoom: { min: 9, max: 13 }
             draw:
                 osm-text:
-                    buffer: 10px
-                    visible: true
+                    order: *text-order-places
+                    buffer: *text-buffer-places
                     text_source: *text_loc_country
+                    visible: true
                     font:
                         size: 15px
                         weight: bold
@@ -127,12 +139,63 @@ layers:
 
     water:
         data: { source: osm }
+        waterlines_0:
+            filter:
+                kind: ocean
+                $zoom: { max: 9 }
+            draw:
+                osm-lines:
+                    order: *lines-order-water
+                    width: 2.0px
+                    color: |
+                        function() {
+                            var a = 1 - ($zoom / 16)
+                            return [0, .5, .6, a];
+                        }
+        waterlines_1:
+            filter:
+                kind: lake
+            draw:
+                osm-lines:
+                    order: *lines-order-water
+                    width: 1.0px
+                    color: |
+                        function() {
+                            var a = 1 - ($zoom / 16)
+                            return [0, .5, .6, a];
+                        }
+        waterlines_2:
+            filter:
+                kind: [river, water]
+            draw:
+                osm-lines:
+                    order: *lines-order-water
+                    width: 1.0px
+                    color: |
+                        function() {
+                            var a = 1 - ($zoom / 16)
+                            return [0, .5, .6, a];
+                        }
+        waterlines_3:
+            filter:
+                kind: canal
+                $zoom: { min: 11 }
+            draw:
+                osm-lines:
+                    order: *lines-order-water
+                    width: 1.0px
+                    color: |
+                        function() {
+                            var a = 1 - ($zoom / 16)
+                            return [0, .5, .6, a];
+                        }
         waternames_0:
             filter:
                 kind: [ocean, sea]
             draw:
                 osm-text:
-                    buffer: 10px
+                    order: *text-order-water
+                    buffer: *text-buffer-water
                     font:
                         size: 12.5px
                         weight: bold
@@ -145,10 +208,10 @@ layers:
                 all:
                     - kind: lake
                 any:
-                    - { $zoom: { min: 6 },  area: { min: 500000000 } }
-                    - { $zoom: { min: 7 },  area: { min: 160000000 } }
-                    - { $zoom: { min: 8 },  area: { min: 40000000 } }
-                    - { $zoom: { min: 9 },  area: { min: 10000000 } }
+                    - { $zoom: { min: 6 },  area: { min: 200000000 } }
+                    - { $zoom: { min: 7 },  area: { min: 100000000 } }
+                    - { $zoom: { min: 8 },  area: { min: 50000000 } }
+                    - { $zoom: { min: 9 },  area: { min: 25000000 } }
                     - { $zoom: { min: 10 }, area: { min: 8000000 } }
                     - { $zoom: { min: 11 }, area: { min: 2000000 } }
                     - { $zoom: { min: 12 }, area: { min: 200000 } }
@@ -156,7 +219,8 @@ layers:
                     - { $zoom: { min: 14 }, area: { min: 2000 } }
             draw:
                 osm-text:
-                    buffer: 10px
+                    order: *text-order-water
+                    buffer: *text-buffer-water
                     font:
                         size: 10px
                         weight: bold
@@ -170,7 +234,8 @@ layers:
                 $zoom: { min: 10 }
             draw:
                 osm-text:
-                    buffer: 10px
+                    order: *text-order-water
+                    buffer: *text-buffer-water
                     font:
                         size: 10px
                         family: *text_family_water
@@ -182,59 +247,10 @@ layers:
                 $zoom: { min: 12 }
             draw:
                 osm-text:
-                    buffer: 10px
+                    order: *text-order-water
+                    buffer: *text-buffer-water
                     font:
                         size: 10px
                         family: *text_family_water
                         fill: *text_fill_water
                         stroke: *text_stroke_water
-        waterlines_0:
-            filter:
-                kind: ocean
-                $zoom: { max: 9 }
-            draw:
-                osm-lines:
-                    order: 1
-                    width: 2.0px
-                    color: |
-                        function() {
-                            var a = 1 - ($zoom / 16)
-                            return [0, .5, .6, a];
-                        }
-        waterlines_1:
-            filter:
-                kind: lake
-            draw:
-                osm-lines:
-                    order: 1
-                    width: 1.0px
-                    color: |
-                        function() {
-                            var a = 1 - ($zoom / 16)
-                            return [0, .5, .6, a];
-                        }
-        waterlines_2:
-            filter:
-                kind: [river, water]
-            draw:
-                osm-lines:
-                    order: 1
-                    width: 1.0px
-                    color: |
-                        function() {
-                            var a = 1 - ($zoom / 16)
-                            return [0, .5, .6, a];
-                        }
-        waterlines_3:
-            filter:
-                kind: canal
-                $zoom: { min: 11 }
-            draw:
-                osm-lines:
-                    order: 1
-                    width: 1.0px
-                    color: |
-                        function() {
-                            var a = 1 - ($zoom / 16)
-                            return [0, .5, .6, a];
-                        }
