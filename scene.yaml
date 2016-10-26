@@ -9,11 +9,13 @@ settings:
         - &text_fill_water  [.65, 1, .95]
         - &text_stroke_places { color: [0, 0, 0], width: 2 }
         - &text_stroke_water  { color: [0, 0, 0], width: 2 }
-    # order vars: "text-[order,buffer]-{layer}" ; "lines-order-{layer}"
     orders:
+    # order vars: "text-[order,buffer]-{layer}" ; "lines-order-{layer}"
         - &raster-order 0
         - &lines-order-boundaries function() { return feature.sort_rank; }
         - &lines-order-water      function() { return feature.sort_rank; }
+#        - &lines-order-roads      function() { return feature.sort_rank; }
+#        - &lines-order-roads      400
         - &text-order-places 1
         - &text-order-water  2
         - &text-buffer-places 10px
@@ -21,6 +23,7 @@ settings:
     exceptions:
         - &small_countries [Luxembourg, Liechtenstein, San Marino, Città del Vaticano, Andorra, Jersey, Guernsey]
 
+##=========================================================================
 sources:
     sat:
         type: Raster
@@ -33,28 +36,32 @@ sources:
         url: http://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?api_key=vector-tiles-Y3DcPK9
         max_zoom: 16
 
+##=========================================================================
 styles:
     sat-raster:
         base: raster
     osm-lines:
         base: lines
-        blend: overlay
-        blend_order: 0 # under text
+        #blend: overlay
+        #blend_order: 0 # under text
     osm-text:
         base: text
-        blend: overlay
-        blend_order: 1 # over lines
+        #blend: overlay
+        #blend_order: 1 # over lines
 
 scene:
     background:
         color: [.75, .75, .75]
 
+##=========================================================================
 layers:
     terrain:
         data: { source: sat }
         draw:
             sat-raster:
                 order: *raster-order
+
+##=========================================================================
     boundaries:
         data: { source: osm }
         adminlines_0:
@@ -74,6 +81,8 @@ layers:
                     order: *lines-order-boundaries
                     width: 1.5px
                     color: [.75, .75, .75, .375]
+
+##=========================================================================
     places:
         data: { source: osm }
         countries_0:
@@ -94,7 +103,7 @@ layers:
                         family: *text_family_places
                         fill: *text_fill_places
                         stroke: *text_stroke_places
-            tosmall:
+            countries_nodraw:
                 filter:
                     name: *small_countries
                 draw:
@@ -172,6 +181,8 @@ layers:
             minor-places:
                 filter: { kind: [farm, hamlet, isolated_dwelling], $zoom: { max: 12 } }
                 visible: false
+
+##=========================================================================
     water:
         data: { source: osm }
         waterlines_0:
@@ -285,3 +296,126 @@ layers:
                         family: *text_family_water
                         fill: *text_fill_water
                         stroke: *text_stroke_water
+
+##=========================================================================
+    roads:
+        data: { source: osm, layer: roads }
+        filter: { not: { highway: service, kind: rail } }
+        draw:
+            osm-lines:
+                order: function() { return feature.sort_rank; }
+                color: [0.83, 0.83, 0.83]
+                width: function () { return Math.log($zoom); }
+                outline:
+                    color: black
+
+        # default outlines starting at zoom 16
+        default-outline-width:
+            filter: { $zoom: { min: 16 } }
+            draw:
+                osm-lines:
+                    outline:
+                        order: 352
+                        width: function () { return 3/16 * Math.log($zoom); }
+
+        highway:
+            filter: { kind: highway }
+                #$zoom: {min: 8}
+            draw:
+                osm-lines:
+                    # put highways on top of all other roads as default order
+                    order: 400
+                    color: [1.0, .8, .0]
+                    width: [[11, 2px], [14, 3px], [16, 4px], [17, 10m]]
+                    outline:
+                        color: black
+                        width: [[10, 0], [12, 1px], [16, 2px]]
+            link:
+                filter: { is_link: true } # on- and off-ramps, etc
+                draw:
+                    osm-lines:
+                        color: [0.65882, 0.65882, 0.50196]
+                        width: [[13, 0px], [14, 3px], [16, 5px], [18, 10m]]
+                        outline:
+                            color: [.3, .3, .3]
+                            width: [[13, 0px], [14, 1px], [18, 1.5px]]
+                tunnel-link:
+                    filter: {is_tunnel: true, $zoom: {min: 13} }
+                    draw:
+                        osm-lines:
+                            color: [0.8, 0.8, 0.7]
+                            outline:
+                                color: [.5, .5, .5]
+            tunnel:
+                filter: {is_tunnel: true, $zoom: {min: 13} }
+                draw:
+                    osm-lines:
+                        color: [0.8, 0.8, 0.7]
+                        outline:
+                            color: [.5, .5, .5]
+
+        major_road:
+            filter: { kind: major_road }
+            # default style
+            draw:
+                osm-lines:
+                    color: [[13, [0.8, 0.8, 0.8]], [17, [1, 1, 1]]]
+                    width: [[13, 0px], [14, 2px], [16, 2.5px], [19, 8m]]
+                    outline:
+                        width: [[12, 0px], [13, .5px], [15, 1px]]
+            primary:
+                filter: { highway: primary }
+                draw:
+                    osm-lines:
+                        width: [[10, 0px], [11, 1.5px], [13, 2.5px], [16, 2.5px], [19, 8m]]
+                        outline:
+                            width: [[10, 0px], [11, .5px], [16, .75px]]
+            secondary:
+                filter: { highway: secondary }
+                draw:
+                    osm-lines:
+                        width: [[11, 0px], [13, 1.5px], [14, 2.5px], [16, 2.5px], [19, 8m]]
+                        outline:
+                            width: [[13, 0px], [14, 1.5px]]
+            tertiary:
+                filter: { highway: tertiary }
+                draw:
+                    osm-lines:
+                        width: [[11, 0px], [13, .75px], [14, 2.5px], [16, 2.5px], [19, 8m]]
+                        outline:
+                            width: [[12, 0px], [15, .5px], [16, 1.25px], [18, 4.5px]]
+
+        minor_road:
+            filter: { kind: minor_road, not: { highway: service } }
+            draw:
+                osm-lines:
+                    color: [[15, [0.6, 0.6, 0.6]], [17, [0.8, 0.8, 0.8]]]
+                    width: [[13, 0px], [14, 1.5px], [15, 3px], [16, 5m]]
+                    outline:
+                        width: [[12, 0px], [14, .5px], [17, 1px]]
+        path:
+            filter: { kind: path }
+            draw:
+                osm-lines:
+                    color: [0.8, 0.8, 0.8]
+                    width: [[16, 0], [17, 3m]]
+                    outline:
+                        width: .1
+
+        z-order:
+            filter: { $zoom: {min: 14} }
+            draw:
+                osm-lines:
+                    # let roads sort themselves past zoom 14
+                    order: function() { return feature.sort_rank; }
+                    # but give them all the same outline
+                    outline:
+                        order: 352 # magic number
+
+            bridges-tunnels:
+                filter: { any: [is_bridge: true, is_tunnel: true] }
+                draw:
+                    osm-lines:
+                        outline:
+                            # except bridges and tunnels, their outlines should also self-sort
+                            order: function() { return feature.sort_rank; }
