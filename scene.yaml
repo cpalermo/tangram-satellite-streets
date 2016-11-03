@@ -3,6 +3,9 @@ settings:
         #- &text_loc_country function() { return feature["name"]; }
         - &text_loc_country function() { return feature["name:en"] || feature["name"]; }
     labels:
+        - &text_size_small  11.0px
+        - &text_size_medium 12.0px
+        - &text_size_big    15.0px
         - &text_family_places Arial
         - &text_family_water  Arial
         - &text_fill_places [1, 1, 1]
@@ -95,13 +98,13 @@ layers:
                 name: true
                 $zoom: { max: 7 }
             draw:
-                osm-text:
+                osm-text-overlay:
                     order: *text-order-places
                     buffer: *text-buffer-places
                     text_source: *text_loc_country
                     visible: true
                     font:
-                        size: 15px
+                        size: *text_size_big
                         weight: bold
                         transform: uppercase
                         family: *text_family_places
@@ -119,13 +122,13 @@ layers:
                 name: true
                 $zoom: { min: 7, max: 9 }
             draw:
-                osm-text:
+                osm-text-overlay:
                     order: *text-order-places
                     buffer: *text-buffer-places
                     text_source: *text_loc_country
                     visible: true
                     font:
-                        size: 15px
+                        size: *text_size_big
                         weight: bold
                         transform: uppercase
                         family: *text_family_places
@@ -137,13 +140,13 @@ layers:
                 name: *small_countries
                 $zoom: { min: 9, max: 13 }
             draw:
-                osm-text:
+                osm-text-overlay:
                     order: *text-order-places
                     buffer: *text-buffer-places
                     text_source: *text_loc_country
                     visible: true
                     font:
-                        size: 15px
+                        size: *text_size_big
                         weight: bold
                         transform: uppercase
                         family: *text_family_places
@@ -155,12 +158,12 @@ layers:
                 name: true
                 $zoom: { min: 9 }
             draw:
-                osm-text:
+                osm-text-overlay:
                     order: *text-order-places
                     buffer: *text-buffer-places
                     visible: true
                     font:
-                        size: 10px
+                        size: *text_size_medium
                         weight: bold
                         transform: uppercase
                         family: *text_family_places
@@ -171,12 +174,13 @@ layers:
                 kind: locality
                 name: true
             draw:
-                osm-text:
+                osm-text-overlay:
                     order: *text-order-places
+                    #blend_order: *text-order-places #?
                     buffer: *text-buffer-places
                     visible: true
                     font:
-                        size: 10px
+                        size: *text_size_small
                         weight: bold
                         family: *text_family_places
                         fill: *text_fill_places
@@ -243,11 +247,11 @@ layers:
             filter:
                 kind: [ocean, sea]
             draw:
-                osm-text:
+                osm-text-overlay:
                     order: *text-order-water
                     buffer: *text-buffer-water
                     font:
-                        size: 12.5px
+                        size: *text_size_medium
                         weight: bold
                         transform: uppercase
                         family: *text_family_water
@@ -264,11 +268,11 @@ layers:
                     - { $zoom: { min: 9 },  area: { min: 25000000 } }
                     - $zoom: { min: 10, max: 16 } ## ??
             draw:
-                osm-text:
+                osm-text-overlay:
                     order: *text-order-water
                     buffer: *text-buffer-water
                     font:
-                        size: 10px
+                        size: *text_size_small
                         weight: bold
                         transform: uppercase
                         family: *text_family_water
@@ -279,11 +283,11 @@ layers:
                 kind: river
                 $zoom: { min: 10 }
             draw:
-                osm-text:
+                osm-text-overlay:
                     order: *text-order-water
                     buffer: *text-buffer-water
                     font:
-                        size: 10px
+                        size: *text_size_small
                         family: *text_family_water
                         fill: *text_fill_water
                         stroke: *text_stroke_water
@@ -292,11 +296,12 @@ layers:
                 kind: canal
                 $zoom: { min: 12 }
             draw:
-                osm-text:
+                osm-text-overlay:
                     order: *text-order-water
+                    #blend_order: *text-order-water #?
                     buffer: *text-buffer-water
                     font:
-                        size: 10px
+                        size: *text_size_small
                         family: *text_family_water
                         fill: *text_fill_water
                         stroke: *text_stroke_water
