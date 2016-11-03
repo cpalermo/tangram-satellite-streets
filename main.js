@@ -1,12 +1,12 @@
-var copAttr = 'Modified <a href="https://scihub.copernicus.eu/">Copernicus</a>' +
+var satAttr = 'Modified <a href="https://scihub.copernicus.eu/">Copernicus</a>' +
     ' Sentinel data 2016 by ' +
     '<a href="http://sentinelmap.eu">SentinelMap</a>' ;
 
-var osmAttr = '© <a href="https://openstreetmap.org/copyright">OSM</a>' +
+var osmAttr = ' | © <a href="https://openstreetmap.org/copyright">OSM</a>' +
     ' contributors data by ' +
     '<a href="https://mapzen.com">Mapzen</a>' ;
 
-var Attr = copAttr + osmAttr ;
+var Attr = satAttr + osmAttr ;
 
 var scLayer = Tangram.leafletLayer({
     scene: 'scene.yaml',
