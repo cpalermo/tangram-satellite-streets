@@ -21,8 +21,8 @@ settings:
 #        - &lines_order_roads      400
         - &text_order_places 2
         - &text_order_water  1
-        - &text_buffer_places 10px
-        - &text_buffer_water  10px
+        - &text_buffer_places 25px
+        - &text_buffer_water  15px
     exceptions:
         - &small_countries [Luxembourg, Liechtenstein, San Marino, Città del Vaticano, Andorra, Jersey, Guernsey]
 
