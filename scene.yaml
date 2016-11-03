@@ -14,15 +14,15 @@ settings:
         - &text_stroke_water  { color: [0, 0, 0], width: 2 }
     orders:
     # order vars: "text-[order,buffer]-{layer}" ; "lines-order-{layer}"
-        - &raster-order 0
-        - &lines-order-boundaries function() { return feature.sort_rank; }
-        - &lines-order-water      function() { return feature.sort_rank; }
-#        - &lines-order-roads      function() { return feature.sort_rank; }
-#        - &lines-order-roads      400
-        - &text-order-places 2
-        - &text-order-water  1
-        - &text-buffer-places 10px
-        - &text-buffer-water  10px
+        - &raster_order 0
+        - &lines_order_boundaries function() { return feature.sort_rank; }
+        - &lines_order_water      function() { return feature.sort_rank; }
+#        - &lines_order_roads      function() { return feature.sort_rank; }
+#        - &lines_order_roads      400
+        - &text_order_places 2
+        - &text_order_water  1
+        - &text_buffer_places 10px
+        - &text_buffer_water  10px
     exceptions:
         - &small_countries [Luxembourg, Liechtenstein, San Marino, Città del Vaticano, Andorra, Jersey, Guernsey]
 
@@ -66,7 +66,7 @@ layers:
         data: { source: sat }
         draw:
             sat-raster:
-                order: *raster-order
+                order: *raster_order
 
 ##=========================================================================
     boundaries:
@@ -76,7 +76,7 @@ layers:
                 kind: country
             draw:
                 osm-lines:
-                    order: *lines-order-boundaries
+                    order: *lines_order_boundaries
                     width: 2.5px
                     color: [.75, .75, .75, .375]
         adminlines_1:
@@ -85,7 +85,7 @@ layers:
                 $zoom: { min: 9 }
             draw:
                 osm-lines:
-                    order: *lines-order-boundaries
+                    order: *lines_order_boundaries
                     width: 1.5px
                     color: [.75, .75, .75, .375]
 
@@ -99,8 +99,8 @@ layers:
                 $zoom: { max: 7 }
             draw:
                 osm-text-overlay:
-                    order: *text-order-places
-                    buffer: *text-buffer-places
+                    order: *text_order_places
+                    buffer: *text_buffer_places
                     text_source: *text_loc_country
                     visible: true
                     font:
@@ -123,8 +123,8 @@ layers:
                 $zoom: { min: 7, max: 9 }
             draw:
                 osm-text-overlay:
-                    order: *text-order-places
-                    buffer: *text-buffer-places
+                    order: *text_order_places
+                    buffer: *text_buffer_places
                     text_source: *text_loc_country
                     visible: true
                     font:
@@ -141,8 +141,8 @@ layers:
                 $zoom: { min: 9, max: 13 }
             draw:
                 osm-text-overlay:
-                    order: *text-order-places
-                    buffer: *text-buffer-places
+                    order: *text_order_places
+                    buffer: *text_buffer_places
                     text_source: *text_loc_country
                     visible: true
                     font:
@@ -159,8 +159,8 @@ layers:
                 $zoom: { min: 9 }
             draw:
                 osm-text-overlay:
-                    order: *text-order-places
-                    buffer: *text-buffer-places
+                    order: *text_order_places
+                    buffer: *text_buffer_places
                     visible: true
                     font:
                         size: *text_size_medium
@@ -175,9 +175,9 @@ layers:
                 name: true
             draw:
                 osm-text-overlay:
-                    order: *text-order-places
-                    #blend_order: *text-order-places #?
-                    buffer: *text-buffer-places
+                    order: *text_order_places
+                    #blend_order: *text_order_places #?
+                    buffer: *text_buffer_places
                     visible: true
                     font:
                         size: *text_size_small
@@ -199,7 +199,7 @@ layers:
                 $zoom: { max: 9 }
             draw:
                 osm-lines-overlay:
-                    order: *lines-order-water
+                    order: *lines_order_water
                     width: 2.0px
                     color: |
                         function() {
@@ -211,7 +211,7 @@ layers:
                 kind: lake
             draw:
                 osm-lines-overlay:
-                    order: *lines-order-water
+                    order: *lines_order_water
                     width: 1.0px
                     color: |
                         function() {
@@ -223,7 +223,7 @@ layers:
                 kind: [river, water]
             draw:
                 osm-lines-overlay:
-                    order: *lines-order-water
+                    order: *lines_order_water
                     width: 1.0px
                     color: |
                         function() {
@@ -236,7 +236,7 @@ layers:
                 $zoom: { min: 11 }
             draw:
                 osm-lines-overlay:
-                    order: *lines-order-water
+                    order: *lines_order_water
                     width: 1.0px
                     color: |
                         function() {
@@ -248,8 +248,8 @@ layers:
                 kind: [ocean, sea]
             draw:
                 osm-text-overlay:
-                    order: *text-order-water
-                    buffer: *text-buffer-water
+                    order: *text_order_water
+                    buffer: *text_buffer_water
                     font:
                         size: *text_size_medium
                         weight: bold
@@ -269,8 +269,8 @@ layers:
                     - $zoom: { min: 10, max: 16 } ## ??
             draw:
                 osm-text-overlay:
-                    order: *text-order-water
-                    buffer: *text-buffer-water
+                    order: *text_order_water
+                    buffer: *text_buffer_water
                     font:
                         size: *text_size_small
                         weight: bold
@@ -284,8 +284,8 @@ layers:
                 $zoom: { min: 10 }
             draw:
                 osm-text-overlay:
-                    order: *text-order-water
-                    buffer: *text-buffer-water
+                    order: *text_order_water
+                    buffer: *text_buffer_water
                     font:
                         size: *text_size_small
                         family: *text_family_water
@@ -297,9 +297,9 @@ layers:
                 $zoom: { min: 12 }
             draw:
                 osm-text-overlay:
-                    order: *text-order-water
-                    #blend_order: *text-order-water #?
-                    buffer: *text-buffer-water
+                    order: *text_order_water
+                    #blend_order: *text_order_water #?
+                    buffer: *text_buffer_water
                     font:
                         size: *text_size_small
                         family: *text_family_water
