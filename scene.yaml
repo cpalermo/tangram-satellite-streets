@@ -42,12 +42,16 @@ styles:
         base: raster
     osm-lines:
         base: lines
-        #blend: overlay
-        #blend_order: 0 # under text
+    osm-lines-overlay:
+        base: lines
+        blend: overlay
+        blend_order: 0 # under text
     osm-text:
         base: text
-        #blend: overlay
-        #blend_order: 1 # over lines
+    osm-text-overlay:
+        base: text
+        blend: overlay
+        blend_order: 1 # over lines
 
 scene:
     background:
@@ -190,7 +194,7 @@ layers:
                 kind: ocean
                 $zoom: { max: 9 }
             draw:
-                osm-lines:
+                osm-lines-overlay:
                     order: *lines-order-water
                     width: 2.0px
                     color: |
@@ -202,7 +206,7 @@ layers:
             filter:
                 kind: lake
             draw:
-                osm-lines:
+                osm-lines-overlay:
                     order: *lines-order-water
                     width: 1.0px
                     color: |
@@ -214,7 +218,7 @@ layers:
             filter:
                 kind: [river, water]
             draw:
-                osm-lines:
+                osm-lines-overlay:
                     order: *lines-order-water
                     width: 1.0px
                     color: |
@@ -227,7 +231,7 @@ layers:
                 kind: canal
                 $zoom: { min: 11 }
             draw:
-                osm-lines:
+                osm-lines-overlay:
                     order: *lines-order-water
                     width: 1.0px
                     color: |
