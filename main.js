@@ -22,10 +22,24 @@ var map = L.map('map' , {
     zoomControl: false
 });
 
-var hash = new L.Hash(map);
-
 var baseLayers = {
     "Sentinel-2": scLayer,
 };
 
 L.control.zoom({position: 'bottomleft'}).addTo(map);
+
+var hash = new L.Hash(map);
+
+// DEBUG
+scLayer.scene.subscribe({
+    load: function (e) {
+        console.log('scene loaded:', e);
+    }
+});
+
+scLayer.scene.subscribe({
+    view_complete: function () {
+	console.log('scene view complete');
+    }
+});
+
