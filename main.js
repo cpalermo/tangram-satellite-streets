@@ -1,6 +1,6 @@
 var satAttr = 'Modified <a href="https://scihub.copernicus.eu/">Copernicus</a>' +
     ' Sentinel data 2016 by ' +
-    '<a href="http://sentinelmap.eu">SentinelMap</a>' ;
+    '<a href="https://sentinelmap.eu">SentinelMap</a>' ;
 
 var osmAttr = ' | © <a href="https://openstreetmap.org/copyright">OSM</a>' +
     ' contributors data by ' +
@@ -14,10 +14,10 @@ var scLayer = Tangram.leafletLayer({
 });
 
 var map = L.map('map' , {
-    center: [ 47.04, 8.44],
-    zoom: 7,
+    center: [ 48.92, 11.25],
+    zoom: 6,
     maxZoom: 16,
-    minZoom: 6,
+    minZoom: 5,
     layers: [scLayer],
     zoomControl: false
 });
@@ -31,6 +31,7 @@ L.control.zoom({position: 'bottomleft'}).addTo(map);
 var hash = new L.Hash(map);
 
 // DEBUG
+/*
 scLayer.scene.subscribe({
     load: function (e) {
         console.log('scene loaded:', e);
@@ -42,4 +43,4 @@ scLayer.scene.subscribe({
 	console.log('scene view complete');
     }
 });
-
+*/

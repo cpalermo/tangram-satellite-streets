@@ -45,13 +45,13 @@ settings:
 sources:
     sat:
         type: Raster
-        url: http://tile.sentinelmap.eu/16/8/{z}/{x}/{y}.jpg
-        min_zoom: 6
+        url: https://tile.sentinelmap.eu/2016/summer/rgb/{z}/{x}/{y}.jpg?key=_my-sentinelmap-key_
+        min_zoom: 5
         max_zoom: 14
-        bounds: [0.0000, 40.9799, 16.87499, 52.48278] # [w, s, e, n]
+        bounds: [0.0000, 40.9799, 22.49999, 55.77657] # [w, s, e, n]
     osm:
         type: TopoJSON
-        url: http://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?api_key=vector-tiles-Y3DcPK9
+        url: https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?api_key=_my-mapzen-key_
         max_zoom: 16
 
 ##=========================================================================
