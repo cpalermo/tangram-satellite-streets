@@ -2,7 +2,9 @@
 
 A [Tangram](https://github.com/tangrams/tangram) scene for adding OSM data to a satellite raster baselayer.
 
-You can see this map live on [SentinelMap website](https://www.sentinelmap.eu).
+![Tangram Satellite Street](https://raw.githubusercontent.com/cpalermo/tangram-satellite-streets/master/img/example.png)
+
+Check how it works on [SentinelMap website](https://www.sentinelmap.eu#13/50.95/1.86).
 
 ## How to use it
 
