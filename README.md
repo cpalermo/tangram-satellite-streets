@@ -1,8 +1,8 @@
-# Tangram Satellite Street Style
+# Tangram Satellite Streets style
 
 A [Tangram](https://github.com/tangrams/tangram) scene for adding OSM data to a satellite raster baselayer.
 
-![Tangram Satellite Street](https://raw.githubusercontent.com/cpalermo/tangram-satellite-streets/master/img/example.png)
+![Tangram Satellite Streets](https://raw.githubusercontent.com/cpalermo/tangram-satellite-streets/master/img/example.png)
 
 Check how it works on [SentinelMap website](https://www.sentinelmap.eu#13/50.95/1.86).
 
