@@ -13,6 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+global:
+    # Satellite basemap tile service
+    sat_url: ''
+    # OpenStreetMap vector tile service
+    osm_url: ''
+
 settings:
     localization:
         #- &text_loc_country function() { return feature["name"]; }
@@ -45,14 +51,10 @@ settings:
 sources:
     sat:
         type: Raster
-        url: https://tile.sentinelmap.eu/2016/summer/rgb/{z}/{x}/{y}.jpg?key=_my-sentinelmap-key_
-        min_zoom: 5
-        max_zoom: 14
-        bounds: [0.0000, 40.9799, 22.49999, 55.77657] # [w, s, e, n]
+        url: global.sat_url
     osm:
         type: TopoJSON
-        url: https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?api_key=_my-mapzen-key_
-        max_zoom: 16
+        url: global.osm_url
 
 ##=========================================================================
 styles:

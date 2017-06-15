@@ -9,7 +9,7 @@ var osmAttr = ' | © <a href="https://openstreetmap.org/copyright">OSM</a>' +
 var Attr = satAttr + osmAttr ;
 
 var scLayer = Tangram.leafletLayer({
-    scene: 'scene.yaml',
+    scene: 'global.yaml',
     attribution: Attr
 });
 
