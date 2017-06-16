@@ -12,20 +12,26 @@ var osmAttr = ' | © <a href="https://openstreetmap.org/copyright">OSM</a>' +
 
 var Attr = satAttr + osmAttr ;
 
+var overlay = {
+    labels: true,
+    roads: true,
+};
+
 var scLayer = Tangram.leafletLayer({
     scene: {
-	global: {'sat_url': 'https://tile.sentinelmap.eu/2016/summer/rgb/{z}/{x}/{y}.jpg',
-	         'sat_api_key': '',
-		 'osm_url': 'https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson',
-		 'osm_api_key': ''},
 	import: ['global.yaml',
 		 'dist/satellite-streets-style.yaml'],
+	global: {'sat_url': 'https://tile.sentinelmap.eu/2016/summer/rgb/{z}/{x}/{y}.jpg',
+		 'osm_url': 'https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson',
+		 'labels_overlay': overlay.labels,
+		 'roads_overlay': overlay.roads,
+		},
     },
-    attribution: Attr
+    attribution: Attr,
 });
 
 var map = L.map('map' , {
-    center: [ 48.92, 11.25],
+    center: [48.92, 11.25],
     zoom: 6,
     maxZoom: 16,
     minZoom: 5,

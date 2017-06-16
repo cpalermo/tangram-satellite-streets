@@ -19,6 +19,10 @@ global:
     # OpenStreetMap vector tile service
     osm_url: ''
 
+    # Layers draw
+    labels_overlay: true
+    roads_overlay: true
+
 settings:
     localization:
         #- &text_loc_country function() { return feature["name"]; }
@@ -80,6 +84,7 @@ scene:
 ##=========================================================================
 layers:
     terrain:
+        enabled: true
         data: { source: sat }
         draw:
             sat-raster:
@@ -87,6 +92,7 @@ layers:
 
 ##=========================================================================
     boundaries:
+        enabled: global.labels_overlay
         data: { source: osm }
         adminlines_0:
             filter:
@@ -108,6 +114,7 @@ layers:
 
 ##=========================================================================
     places:
+        enabled: global.labels_overlay
         data: { source: osm }
         countries_0:
             filter:
@@ -209,6 +216,7 @@ layers:
 
 ##=========================================================================
     water:
+        enabled: global.labels_overlay
         data: { source: osm }
         waterlines_0:
             filter:
@@ -325,6 +333,7 @@ layers:
 
 ##=========================================================================
     roads:
+        enabled: global.roads_overlay
         data: { source: osm, layer: roads }
         filter: { not: { highway: service, kind: rail } }
         draw:
