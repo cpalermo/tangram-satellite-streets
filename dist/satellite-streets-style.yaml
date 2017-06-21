@@ -210,7 +210,7 @@ layers:
                         family: *text_family_places
                         fill: *text_fill_places
                         stroke: *text_stroke_places
-            # no draw burgs over z15
+            # no draw minor localities under z15
             locality_nodraw:
                 filter:
                     kind_detail: *small_locality
