@@ -138,7 +138,7 @@ layers:
                 filter:
                     name: *small_countries
                 draw:
-                    osm-text:
+                    osm-text-overlay:
                         visible: false
         countries_1:
             filter:
