@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <meta name="keywords" content="map, sentinel, copernicus">
 
     <!-- mobile map -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -13,21 +12,69 @@
     <!-- stylesheets -->
     <link href="style.css" rel="stylesheet"/>
     <link href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" rel="stylesheet"/>
+    <link href="./lib/leaflet-sidebar.css" rel="stylesheet"/>
+    <link href="./lib/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
 
     <!-- libraries -->
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
     <script src="https://mapzen.com/tangram/0.12.5/tangram.min.js"></script>
     <script src="./lib/leaflet-hash.js"></script>
+    <script src="./lib/leaflet-sidebar.js"></script>
   </head>
   
   <body class="map-layout">
 
+    <!--Content-->
     <div id="content">
+
+      <!-- Sidebar -->
+      <div id="sidebar" class="sidebar collapsed">
+
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+	  <ul role="tablist">
+            <li><a href="#settings" role="tab"><i class="fa fa-cog"></i></a></li>
+          </ul>
+	</div><!--end of Nav tabs-->
+
+	<!-- Tab panes -->
+        <div class="sidebar-content">
+	  
+	  <!--Settings sidebar-pane-->
+	  <div class="sidebar-pane" id="settings">
+            <h1 class="sidebar-header">
+              Settings
+              <span class="sidebar-close"><i class="fa fa-times"></i></span>
+	    </h1>
+	    <div>
+	      <p>
+		<!--<input id="labels" type="button" value="Labels"/>-->
+		<span id="labels" class="btn">
+		  <i id="labels_toggle" class="fa fa-border fa-toggle-on"></i>
+		  Labels
+		</span>
+	      </p>
+	      <p>
+		<!--<p><input id="roads" type="button" value="Roads"/></p>-->
+		<span id="roads" class="btn">
+		  <i id="roads_toggle" class="fa fa-border fa-toggle-on"></i>
+		  Roads
+		</span>
+	      </p>
+	    </div>
+          </div> <!--end of Settings sidebar-pane-->
+
+	</div><!--end of Tab panes-->
+	
+      </div><!--end of Sidebar-->
+
+      <!-- Map -->
       <div id="map">
 	<script src="main.js"></script>
-	<!--<script src="global.js"></script>-->
-      </div>
-    </div>
+      </div><!--end of Map-->
+      
+    </div><!--end of Content-->
     
   </body>
+
 </html>

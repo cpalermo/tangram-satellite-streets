@@ -21,3 +21,4 @@ sources:
         url_params:
             api_key: global.osm_api_key
         max_zoom: 16
+
