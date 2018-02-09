@@ -6,10 +6,10 @@ global:
     sat_url: 'https://tile.sentinelmap.eu/2016/summer/rgb/{z}/{x}/{y}.jpg'
     sat_api_key: '' ## set this value to your SentinelMap API key
 
-    # Mapzen vector tile service - Sign up for an API key here
-    # https://mapzen.com/developers/
-    osm_url: 'https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson'
-    osm_api_key: '' ## set this value to your Mapzen API key
+    # Nextzen vector tile service - Sign up for an API key here
+    # https://developers.nextzen.org/
+    osm_url: 'https://tile.nextzen.org/tilezen/vector/v1/all/{z}/{x}/{y}.topojson'
+    osm_api_key: '' ## set this value to your Nextzen API key
 
 sources:
     sat:
